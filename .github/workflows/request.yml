@@ -1,0 +1,40 @@
+name: Request
+on:
+  issues:
+    types:
+      - opened
+  issue_comment:
+    types:
+      - created
+env:
+  TZ: 'Asia/Tokyo'
+jobs:
+  register:
+    runs-on: ubuntu-22.04
+    if: |
+      contains(github.event.issue.labels.*.name, 'registration') && (
+        (github.event_name == 'issues') || (
+          github.event_name == 'issue_comment' &&
+          !github.event.issue.pull_request &&
+          startsWith(github.event.comment.body, '/retry') &&
+          (github.actor == github.event.issue.user.login)
+        )
+      )
+    steps:
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # renovate: tag=v3.3.0
+        with:
+          repository: CyberAgentHack/web-speed-hackathon-2023-scoring-tool-workspace
+          ssh-key: ${{ secrets.CHECKOUT_WORKSPACE }}
+
+      - uses: pnpm/action-setup@c3b53f6a16e57305370b4ae5a540c2077a1d50dd # renovate: tag=v2.2.4
+        with:
+          version: 7.25.0
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # renovate: tag=v3.6.0
+        with:
+          node-version-file: '.node-version'
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm start
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SCORE_SERVER_AUTH_TOKEN: ${{ secrets.SCORE_SERVER_AUTH_TOKEN }}

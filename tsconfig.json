@@ -1,0 +1,9 @@
+{
+  "extends": "@tsconfig/node-lts-strictest-esm/tsconfig.json",
+  "compilerOptions": {
+    "lib": ["esnext", "dom"],
+    "moduleResolution": "node",
+    "noEmit": true
+  },
+  "include": ["src/**/*"]
+}

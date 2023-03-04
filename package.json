@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "license": "MPL-2.0",
+  "type": "module",
+  "scripts": {
+    "start": "tsx ./src/index.mts"
+  },
+  "dependencies": {
+    "@actions/github": "5.1.1",
+    "common-tags": "1.8.2",
+    "lighthouse": "10.0.1",
+    "p-all": "4.0.0",
+    "pptr-testing-library": "0.7.0",
+    "puppeteer": "npm:puppeteer-core@19.7.2",
+    "storycrawler": "4.0.0",
+    "tsx": "3.12.3",
+    "typescript": "4.9.5"
+  },
+  "devDependencies": {
+    "@tsconfig/node-lts-strictest-esm": "18.12.1",
+    "@types/common-tags": "1.8.1"
+  }
+}
