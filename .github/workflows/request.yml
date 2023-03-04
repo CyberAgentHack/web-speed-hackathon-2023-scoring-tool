@@ -11,6 +11,7 @@ env:
 jobs:
   register:
     runs-on: ubuntu-22.04
+    timeout-minutes: 30
     if: |
       contains(github.event.issue.labels.*.name, 'registration') && (
         (github.event_name == 'issues') || (
@@ -25,7 +26,6 @@ jobs:
         with:
           repository: CyberAgentHack/web-speed-hackathon-2023-scoring-tool-workspace
           ssh-key: ${{ secrets.CHECKOUT_WORKSPACE }}
-
       - uses: pnpm/action-setup@c3b53f6a16e57305370b4ae5a540c2077a1d50dd # renovate: tag=v2.2.4
         with:
           version: 7.25.0
